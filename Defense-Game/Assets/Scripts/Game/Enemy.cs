@@ -1,10 +1,10 @@
-﻿using System.Collections;
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     //Health,AttackPower,MoveSpeed
-    public int health,attackPower;
+    public int health, attackPower;
     public float moveSpeed;
 
     public Animator animator;
@@ -12,17 +12,37 @@ public class Enemy : MonoBehaviour
     Coroutine attackOrder;
     Tower detectedTower;
 
+    private GameObject targetTile;
+
+    private void Start()
+    {
+        initializeEnemy();
+    }
     void Update()
     {
-        if(!detectedTower)
-        {
-            Move();
-        }        
+        checkPosition();
+        moveEnemy();
+        takeDamage(0);
     }
-
+    private void initializeEnemy()
+    {
+        targetTile = MapGenerator.Inst.startTile;
+    }
+    public void takeDamage(int amount)
+    {
+        health -= amount;
+        if (health <= Mathf.Epsilon)
+        {
+            enemyDie();
+        }
+    }
+    private void enemyDie()
+    {
+        Destroy(gameObject);
+    }
     IEnumerator Attack()
     {
-        animator.Play("Attack",0,0);
+        animator.Play("Attack", 0, 0);
         //Wait attackInterval 
         yield return new WaitForSeconds(attackInterval);
         //Attack Again
@@ -33,9 +53,27 @@ public class Enemy : MonoBehaviour
     void Move()
     {
         animator.Play("Move");
-        transform.Translate(-transform.right*moveSpeed*Time.deltaTime);
+        transform.Translate(-transform.right * moveSpeed * Time.deltaTime);
     }
+    private void moveEnemy()
+    {
+        transform.position = Vector3.MoveTowards(transform.position,
+            targetTile.transform.position, moveSpeed * Time.deltaTime);
+    }
+    private void checkPosition()
+    {
+        if (targetTile != null && targetTile != MapGenerator.Inst.endTile)
+        {
+            float distance = (transform.position - targetTile.transform.position).magnitude;
 
+            if (distance < Mathf.Epsilon)
+            {
+                int currentIndex = MapGenerator.Inst.pathTiles.IndexOf(targetTile);
+
+                targetTile = MapGenerator.Inst.pathTiles[currentIndex + 1];
+            }
+        }
+    }
     public void InflictDamage()
     {
         bool towerDied = detectedTower.LoseHealth(attackPower);
@@ -55,18 +93,18 @@ public class Enemy : MonoBehaviour
         //Blink Red animation
         StartCoroutine(BlinkRed());
         //Check if health is zero => destroy enemy
-        if(health<=0)
+        if (health <= 0)
             Destroy(gameObject);
     }
 
     IEnumerator BlinkRed()
     {
         //Change the spriterendere color to red
-        GetComponent<SpriteRenderer>().color=Color.red;
+        GetComponent<SpriteRenderer>().color = Color.red;
         //Wait for really small amount of time 
         yield return new WaitForSeconds(0.2f);
         //Revert to default color
-        GetComponent<SpriteRenderer>().color=Color.white;
+        GetComponent<SpriteRenderer>().color = Color.white;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -74,10 +112,10 @@ public class Enemy : MonoBehaviour
         if (detectedTower)
             return;
 
-        if(collision.tag == "Tower")
+        if (collision.tag == "Tower")
         {
             detectedTower = collision.GetComponent<Tower>();
             attackOrder = StartCoroutine(Attack());
-        }   
-    }    
+        }
+    }
 }

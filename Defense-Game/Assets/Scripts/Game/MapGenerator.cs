@@ -3,14 +3,18 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
+    public static MapGenerator Inst = null;
     public GameObject mapTile;
     public GameObject pathTile;
 
     [SerializeField] private int mapWidth;
     [SerializeField] private int mapHeight;
 
-    private List<GameObject> mapTiles = new List<GameObject>();
-    private List<GameObject> pathTiles = new List<GameObject>();
+    public List<GameObject> mapTiles = new List<GameObject>();
+    public List<GameObject> pathTiles = new List<GameObject>();
+
+    public GameObject startTile;
+    public GameObject endTile;
 
     private bool reachedX = false;
     private bool reachedY = false;
@@ -18,6 +22,10 @@ public class MapGenerator : MonoBehaviour
     private GameObject currentTile;
     private int currentIndex;
     private int nextIndex;
+    private void Awake()
+    {
+        Inst = this;
+    }
     private void Start()
     {
         generateMap();
@@ -70,17 +78,15 @@ public class MapGenerator : MonoBehaviour
         {
             for (int x = 0; x < mapWidth; ++x)
             {
-                GameObject newTile = Instantiate(mapTile);
+                GameObject newTile = Instantiate(mapTile, transform);
 
                 mapTiles.Add(newTile);
 
-                newTile.transform.position = new Vector2(x, y);
+                newTile.transform.localPosition = new Vector2(x, y);
             }
         }
         List<GameObject> topEdgeTiles = getTopEdgeTiles();
         List<GameObject> bottomEdgeTiles = getBottomEdgeTiles();
-
-        GameObject startTile, endTile;
 
         int rand1 = Random.Range(0, mapWidth);
         int rand2 = Random.Range(0, mapWidth);
@@ -121,11 +127,24 @@ public class MapGenerator : MonoBehaviour
             else reachedY = true;
         }
         pathTiles.Add(endTile);
-        foreach (GameObject obj in pathTiles)
+        for(int i = 0; i < pathTiles.Count; ++i)
         {
-            GameObject path = Instantiate(pathTile);
-            path.transform.position = obj.transform.position;
-            Destroy(obj);
+            GameObject path = Instantiate(pathTile, transform);
+
+            if (pathTiles[i] == startTile)
+            {
+                path.GetComponent<SpriteRenderer>().color = Color.green;
+                startTile = path;
+            }
+            else if (pathTiles[i] == endTile)
+            {
+                path.GetComponent<SpriteRenderer>().color = Color.red;
+                endTile = path;
+            }
+            GameObject temp = pathTiles[i];
+            path.transform.localPosition = pathTiles[i].transform.localPosition;
+            pathTiles[i] = path;
+            Destroy(temp);
         }
     }
 }
