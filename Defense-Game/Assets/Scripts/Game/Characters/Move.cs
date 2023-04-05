@@ -13,11 +13,12 @@ public class Move : ChracterState
         //character.transform.position += character.transform.forward * character.moveSpeed * Time.deltaTime;
 
         // Switch to the walking state if the player stops running
-      
+        if (character.isDetected) character.SetState(new Attack(character));
     }
 
     public override void OnEnter()
     {
+        Debug.Log("OnMove");
         // Set the player's animation to running
         character.animator.SetBool("IsWalking", true);
     }

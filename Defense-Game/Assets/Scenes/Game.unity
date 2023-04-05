@@ -6084,6 +6084,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -687543987830112417, guid: 31b6829ee1c0e4244815d79cd70889ba,
+        type: 3}
+      propertyPath: health
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1832107479438413388, guid: 31b6829ee1c0e4244815d79cd70889ba,
         type: 3}
       propertyPath: m_RootOrder
@@ -7185,7 +7190,7 @@ MonoBehaviour:
   health: 5
   attackPower: 2
   moveSpeed: 1
-  attackInterval: 0
+  attackInterval: 1
   isDetected: 0
   enemyMask:
     serializedVersion: 2

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-
+using System.Collections;
 public interface LoseHealth
 {
     public void LoseHealth(int amount);
@@ -8,7 +8,11 @@ public interface CharacterDie
 {
     public void Die();
 }
-public interface LoseHealthAndDie : CharacterDie, LoseHealth
+public interface DeadAction
+{
+    public void DeadMessage();
+}
+public interface LoseHealthAndDie : CharacterDie, LoseHealth, DeadAction
 {
 
 }
@@ -50,6 +54,7 @@ public class Character : MonoBehaviour
     public Animator animator;
 
     protected ChracterState currentState;
+    protected Coroutine attackOrder;
 
     protected virtual void Move() { }
 
@@ -78,5 +83,23 @@ public class Character : MonoBehaviour
         {
             currentState.OnEnter();
         }
+    }
+    protected IEnumerator Attack()
+    {
+        animator.Play("Attack", 0, 0);
+        Debug.Log("OnAttack");
+
+        //Wait attackInterval 
+        if(attackInterval <= Mathf.Epsilon) yield return new WaitForSeconds(1.0f);
+        else yield return new WaitForSeconds(attackInterval);
+        //Attack Again
+    }
+    public void OnAttack()
+    {
+        StartCoroutine(Attack());
+    }
+    public void OffAttack()
+    {
+        StopCoroutine(Attack());
     }
 }

@@ -20,6 +20,12 @@ public class Unit : Character, LoseHealthAndDie
         animator.SetBool("IsWalking", true);
         transform.Translate(transform.right * moveSpeed * Time.deltaTime);
     }
+    public void InflictDamage()
+    {
+        if (myTarget != null)
+            myTarget.GetComponent<LoseHealthAndDie>().LoseHealth(attackPower);
+    }
+
     //Lose Health
     public void LoseHealth(int amount)
     {
@@ -34,7 +40,14 @@ public class Unit : Character, LoseHealthAndDie
     //Die
     public void Die()
     {
+        myTarget.GetComponent<LoseHealthAndDie>().DeadMessage();
         Destroy(gameObject);
+    }
+    public void DeadMessage()
+    {
+        myTarget = null;
+        isDetected = false;
+        SetState(new Move(this));
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -44,7 +57,6 @@ public class Unit : Character, LoseHealthAndDie
         if ((enemyMask & 1 << collision.gameObject.layer) != 0)
         {
             myTarget = collision.transform;
-            animator.SetBool("IsWalking", false);
             isDetected = true;
         }
     }

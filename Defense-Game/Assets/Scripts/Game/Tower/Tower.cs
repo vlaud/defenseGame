@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Tower : MonoBehaviour, LoseHealthAndDie
@@ -36,5 +34,9 @@ public class Tower : MonoBehaviour, LoseHealthAndDie
         Debug.Log("Tower is dead");
         FindObjectOfType<Spawner>().RevertCellState(cellPosition);
         Destroy(gameObject);
+    }
+    public void DeadMessage()
+    {
+
     }
 }

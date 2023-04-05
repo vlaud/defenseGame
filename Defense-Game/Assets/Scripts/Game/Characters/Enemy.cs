@@ -1,10 +1,8 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Enemy : Character
+public class Enemy : Character, LoseHealthAndDie
 {
-    Coroutine attackOrder;
-
     void Update()
     {
         if (!isDetected) Move();
@@ -14,22 +12,14 @@ public class Enemy : Character
         health -= amount;
         if (health <= Mathf.Epsilon)
         {
-            enemyDie();
+            Die();
         }
     }
-    private void enemyDie()
+    public void DeadMessage()
     {
-        Destroy(gameObject);
+        myTarget = null;
+        isDetected = false;
     }
-    IEnumerator Attack()
-    {
-        animator.Play("Attack", 0, 0);
-        //Wait attackInterval 
-        yield return new WaitForSeconds(attackInterval);
-        //Attack Again
-        attackOrder = StartCoroutine(Attack());
-    }
-
     //Moving forward
     protected override void Move()
     {
@@ -54,7 +44,21 @@ public class Enemy : Character
         if (health <= 0)
             Destroy(gameObject);
     }
+    public void LoseHealth(int amount)
+    {
+        //health = health - amount
+        health -= amount;
 
+        if (health <= 0)
+        {
+            Die();
+        }
+    }
+    public void Die()
+    {
+        myTarget.GetComponent<LoseHealthAndDie>().DeadMessage();
+        Destroy(gameObject);
+    }
     IEnumerator BlinkRed()
     {
         //Change the spriterendere color to red
