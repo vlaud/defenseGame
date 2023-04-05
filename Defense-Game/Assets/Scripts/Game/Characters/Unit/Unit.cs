@@ -1,20 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Unit : Character, LoseHealthAndDie
 {
     public int cost;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
+    private void Start()
+    {
+        SetState(new Move(this));
+    }
     // Update is called once per frame
     void Update()
     {
-        if (!isDetected) Move();
+        currentState.Update();
+        //if (!isDetected) Move();
     }
 
     protected override void Move()

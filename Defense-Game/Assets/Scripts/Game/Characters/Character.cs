@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public interface LoseHealth
 {
@@ -14,42 +12,71 @@ public interface LoseHealthAndDie : CharacterDie, LoseHealth
 {
 
 }
+public abstract class ChracterState
+{
+    protected Character character;
+
+    public ChracterState(Character character)
+    {
+        this.character = character;
+    }
+
+    public virtual void Update()
+    {
+        // Default implementation of the Update method
+    }
+
+    public virtual void OnEnter()
+    {
+        // Default implementation of the OnEnter method
+    }
+    
+    public virtual void OnExit()
+    {
+        // Default implementation of the OnExit method
+    }
+}
 public class Character : MonoBehaviour
 {
     //Health,AttackPower,MoveSpeed
     public int health, attackPower;
     public float moveSpeed;
-
-    public Animator animator;
     public float attackInterval;
-    public LayerMask enemyMask;
+
     public bool isDetected;
-
+    public LayerMask enemyMask;
+ 
     public Transform myTarget;
-    public State state;
+    public Animator animator;
 
-    public Character()
-    {
-    }
-    public Character(State state)
-    {
-        this.state = state;
-    }
-    public void setState(State state) // setter 상태를 set
-    {
-        this.state = state;
-    }
-    public void act()  // getter 상대를 get. ⭐상태에 따른 행동을 알아서 한다.⭐
-    {
-        state.Action();
-    }
+    protected ChracterState currentState;
+
     protected virtual void Move() { }
-    public void ChangeState()
-    {
 
+    private void Start()
+    {
+        SetState(new Move(this));
     }
-    public void StateProcess()
+    private void Update()
     {
+        // Update the current state
+        currentState.Update();
+    }
+    public void SetState(ChracterState newState)
+    {
+        // Exit the current state
+        if (currentState != null)
+        {
+            currentState.OnExit();
+        }
 
+        // Set the new state
+        currentState = newState;
+
+        // Enter the new state
+        if (currentState != null)
+        {
+            currentState.OnEnter();
+        }
     }
 }

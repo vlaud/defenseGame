@@ -6097,7 +6097,7 @@ PrefabInstance:
     - target: {fileID: 1832107479438413388, guid: 31b6829ee1c0e4244815d79cd70889ba,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.1817565
+      value: -0.05
       objectReference: {fileID: 0}
     - target: {fileID: 1832107479438413388, guid: 31b6829ee1c0e4244815d79cd70889ba,
         type: 3}
@@ -7185,13 +7185,13 @@ MonoBehaviour:
   health: 5
   attackPower: 2
   moveSpeed: 1
-  animator: {fileID: 8678930386127403586}
   attackInterval: 0
+  isDetected: 0
   enemyMask:
     serializedVersion: 2
     m_Bits: 8
-  isDetected: 0
   myTarget: {fileID: 0}
+  animator: {fileID: 8678930386127403586}
   cost: 0
 --- !u!95 &8678930386127403586
 Animator:

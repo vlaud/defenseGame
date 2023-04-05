@@ -5,22 +5,9 @@ public class Enemy : Character
 {
     Coroutine attackOrder;
 
-    private GameObject targetTile;
-
-    private void Start()
-    {
-        //initializeEnemy();
-    }
     void Update()
     {
-        //checkPosition();
-        //moveEnemy();
-        //takeDamage(0);
         if (!isDetected) Move();
-    }
-    private void initializeEnemy()
-    {
-        targetTile = MapGenerator.Inst.startTile;
     }
     public void takeDamage(int amount)
     {
@@ -49,25 +36,7 @@ public class Enemy : Character
         animator.Play("Move");
         transform.Translate(-transform.right * moveSpeed * Time.deltaTime);
     }
-    private void moveEnemy()
-    {
-        transform.position = Vector3.MoveTowards(transform.position,
-            targetTile.transform.position, moveSpeed * Time.deltaTime);
-    }
-    private void checkPosition()
-    {
-        if (targetTile != null && targetTile != MapGenerator.Inst.endTile)
-        {
-            float distance = (transform.position - targetTile.transform.position).magnitude;
-
-            if (distance < Mathf.Epsilon)
-            {
-                int currentIndex = MapGenerator.Inst.pathTiles.IndexOf(targetTile);
-
-                targetTile = MapGenerator.Inst.pathTiles[currentIndex + 1];
-            }
-        }
-    }
+   
     public void InflictDamage()
     {
         if(myTarget != null)
