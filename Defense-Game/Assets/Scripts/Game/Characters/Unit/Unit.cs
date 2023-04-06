@@ -12,10 +12,9 @@ public class Unit : Character, LoseHealthAndDie
     void Update()
     {
         currentState.Update();
-        //if (!isDetected) Move();
     }
 
-    protected override void Move()
+    public override void Move()
     {
         animator.SetBool("IsWalking", true);
         transform.Translate(transform.right * moveSpeed * Time.deltaTime);

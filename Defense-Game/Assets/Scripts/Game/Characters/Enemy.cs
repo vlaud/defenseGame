@@ -3,29 +3,27 @@ using UnityEngine;
 
 public class Enemy : Character, LoseHealthAndDie
 {
+    private void Start()
+    {
+        SetState(new Move(this));
+    }
     void Update()
     {
-        if (!isDetected) Move();
+        currentState.Update();
     }
-    public void takeDamage(int amount)
+    //Moving forward
+    public override void Move()
     {
-        health -= amount;
-        if (health <= Mathf.Epsilon)
-        {
-            Die();
-        }
+        animator.Play("Move");
+        transform.Translate(-transform.right * moveSpeed * Time.deltaTime);
     }
+
     public void DeadMessage()
     {
         myTarget = null;
         isDetected = false;
     }
-    //Moving forward
-    protected override void Move()
-    {
-        animator.Play("Move");
-        transform.Translate(-transform.right * moveSpeed * Time.deltaTime);
-    }
+    
    
     public void InflictDamage()
     {

@@ -56,7 +56,7 @@ public class Character : MonoBehaviour
     protected ChracterState currentState;
     protected Coroutine attackOrder;
 
-    protected virtual void Move() { }
+    public virtual void Move() { }
 
     private void Start()
     {
@@ -86,13 +86,16 @@ public class Character : MonoBehaviour
     }
     protected IEnumerator Attack()
     {
-        animator.Play("Attack", 0, 0);
-        Debug.Log("OnAttack");
+        while(myTarget != null)
+        {
+            animator.Play("Attack", 0, 0);
+            Debug.Log("OnAttack");
 
-        //Wait attackInterval 
-        if(attackInterval <= Mathf.Epsilon) yield return new WaitForSeconds(1.0f);
-        else yield return new WaitForSeconds(attackInterval);
-        //Attack Again
+            //Wait attackInterval 
+            if (attackInterval <= Mathf.Epsilon) yield return new WaitForSeconds(1.0f);
+            else yield return new WaitForSeconds(attackInterval);
+            //Attack Again
+        }
     }
     public void OnAttack()
     {

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 public class Move : ChracterState
 {
@@ -9,8 +10,7 @@ public class Move : ChracterState
     public override void Update()
     {
         // Move the player forward with a faster speed
-        character.transform.Translate(character.transform.right * character.moveSpeed * Time.deltaTime);
-        //character.transform.position += character.transform.forward * character.moveSpeed * Time.deltaTime;
+        character.Move();
 
         // Switch to the walking state if the player stops running
         if (character.isDetected) character.SetState(new Attack(character));
