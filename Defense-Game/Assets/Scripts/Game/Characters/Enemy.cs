@@ -22,6 +22,7 @@ public class Enemy : Character, LoseHealthAndDie
     {
         myTarget = null;
         isDetected = false;
+        SetState(new Move(this));
     }
     
    
@@ -75,7 +76,6 @@ public class Enemy : Character, LoseHealthAndDie
         if ((enemyMask & 1 << collision.gameObject.layer) != 0)
         {
             myTarget = collision.transform;
-            attackOrder = StartCoroutine(Attack());
             isDetected = true;
         }
     }

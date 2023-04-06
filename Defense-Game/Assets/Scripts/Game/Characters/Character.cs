@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.TextCore.Text;
+
 public interface LoseHealth
 {
     public void LoseHealth(int amount);
@@ -88,7 +90,9 @@ public class Character : MonoBehaviour
     {
         while(myTarget != null)
         {
-            animator.Play("Attack", 0, 0);
+            // Set the player's animation to running
+            animator.SetTrigger("Attack");
+
             Debug.Log("OnAttack");
 
             //Wait attackInterval 

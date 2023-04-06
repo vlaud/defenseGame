@@ -6487,8 +6487,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   txt_Currency: {fileID: 1753313002}
-  defaultCurrency: 10
-  currency: 0
+  defaultCurrency: 100
+  currency: 100
 --- !u!114 &1669589387
 MonoBehaviour:
   m_ObjectHideFlags: 0

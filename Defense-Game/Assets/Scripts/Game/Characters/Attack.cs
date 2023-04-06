@@ -15,9 +15,6 @@ public class Attack : ChracterState
 
     public override void OnEnter()
     {
-        // Set the player's animation to running
-        character.animator.SetTrigger("Attack");
-
         character.OnAttack();
     }
 
