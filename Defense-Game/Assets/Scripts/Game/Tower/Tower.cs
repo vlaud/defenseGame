@@ -1,8 +1,7 @@
 using UnityEngine;
 
-public class Tower : MonoBehaviour, LoseHealthAndDie
+public class Tower : Character
 {
-    public int health;
     public int cost;
     private Vector3Int cellPosition;
 
@@ -18,7 +17,7 @@ public class Tower : MonoBehaviour, LoseHealthAndDie
     }
 
     //Lose Health
-    public void LoseHealth(int amount)
+    public override void LoseHealth(int amount)
     {
         //health = health - amount
         health-= amount;
@@ -29,14 +28,10 @@ public class Tower : MonoBehaviour, LoseHealthAndDie
         }
     }
     //Die
-    public void Die()
+    public override void Die()
     {
         Debug.Log("Tower is dead");
         FindObjectOfType<Spawner>().RevertCellState(cellPosition);
         Destroy(gameObject);
-    }
-    public void DeadMessage()
-    {
-
     }
 }

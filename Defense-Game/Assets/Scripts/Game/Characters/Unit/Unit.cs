@@ -26,7 +26,7 @@ public class Unit : Character, LoseHealthAndDie
     }
 
     //Lose Health
-    public void LoseHealth(int amount)
+    public override void LoseHealth(int amount)
     {
         //health = health - amount
         health -= amount;
@@ -37,12 +37,12 @@ public class Unit : Character, LoseHealthAndDie
         }
     }
     //Die
-    public void Die()
+    public override void Die()
     {
         myTarget.GetComponent<LoseHealthAndDie>().DeadMessage();
         Destroy(gameObject);
     }
-    public void DeadMessage()
+    public override void DeadMessage()
     {
         myTarget = null;
         isDetected = false;

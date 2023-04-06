@@ -18,13 +18,12 @@ public class Enemy : Character, LoseHealthAndDie
         transform.Translate(-transform.right * moveSpeed * Time.deltaTime);
     }
 
-    public void DeadMessage()
+    public override void DeadMessage()
     {
         myTarget = null;
         isDetected = false;
         SetState(new Move(this));
     }
-    
    
     public void InflictDamage()
     {
@@ -43,7 +42,7 @@ public class Enemy : Character, LoseHealthAndDie
         if (health <= 0)
             Destroy(gameObject);
     }
-    public void LoseHealth(int amount)
+    public override void LoseHealth(int amount)
     {
         //health = health - amount
         health -= amount;
@@ -53,7 +52,7 @@ public class Enemy : Character, LoseHealthAndDie
             Die();
         }
     }
-    public void Die()
+    public override void Die()
     {
         myTarget.GetComponent<LoseHealthAndDie>().DeadMessage();
         Destroy(gameObject);

@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
-using UnityEngine.TextCore.Text;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public interface LoseHealth
 {
@@ -14,7 +14,11 @@ public interface DeadAction
 {
     public void DeadMessage();
 }
-public interface LoseHealthAndDie : CharacterDie, LoseHealth, DeadAction
+public interface AddAttacker
+{
+    public void AddAttackers(LoseHealthAndDie target);
+}
+public interface LoseHealthAndDie : CharacterDie, LoseHealth, DeadAction, AddAttacker
 {
 
 }
@@ -42,7 +46,7 @@ public abstract class ChracterState
         // Default implementation of the OnExit method
     }
 }
-public class Character : MonoBehaviour
+public class Character : MonoBehaviour, LoseHealthAndDie
 {
     //Health,AttackPower,MoveSpeed
     public int health, attackPower;
@@ -51,8 +55,19 @@ public class Character : MonoBehaviour
 
     public bool isDetected;
     public LayerMask enemyMask;
- 
-    public Transform myTarget;
+
+    protected List<LoseHealthAndDie> myAttackers = new List<LoseHealthAndDie>();
+
+    Transform _target = null;
+    public Transform myTarget
+    {
+        get => _target;
+        set
+        {
+            _target = value;
+            if (_target != null) _target.GetComponent<LoseHealthAndDie>()?.AddAttackers(this);
+        }
+    }
     public Animator animator;
 
     protected ChracterState currentState;
@@ -109,4 +124,11 @@ public class Character : MonoBehaviour
     {
         StopCoroutine(Attack());
     }
+    public virtual void LoseHealth(int amount) { }
+    public virtual void Die() { }
+
+
+    public virtual void DeadMessage() { }
+
+    public virtual void AddAttackers(LoseHealthAndDie target) { }
 }

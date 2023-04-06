@@ -7,6 +7,7 @@ public class Spawner : MonoBehaviour
 {
     //list of towers (prefabs) that will instantiate
     public List<GameObject> towersPrefabs;
+    public List<GameObject> unitPrefabs;
     //Transform of the spawning towers (Root Object)
     public Transform spawnTowerRoot;
     //list of towers (UI)
@@ -98,7 +99,10 @@ public class Spawner : MonoBehaviour
         //Highlight the tower
         towersUI[spawnID].color = Color.white;        
     }
-
+    public void SelectUnit()
+    {
+        GameObject unit = Instantiate(unitPrefabs[0], spawnTowerRoot);
+    }
     public void DeselectTowers()
     {
         spawnID = -1;
@@ -106,8 +110,5 @@ public class Spawner : MonoBehaviour
         {
             t.color = new Color(0.5f, 0.5f, 0.5f);
         }
-    }    
-
-
-    
+    }
 }
