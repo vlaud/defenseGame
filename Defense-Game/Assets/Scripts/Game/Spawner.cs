@@ -76,7 +76,14 @@ public class Spawner : MonoBehaviour
             default:return -1;
         }
     }
-
+    public int UnitCost(int id)
+    {
+        switch (id)
+        {
+            case 0: return unitPrefabs[id].GetComponent<Unit_Pink>().cost;
+            default: return -1;
+        }
+    }
     void SpawnTower(Vector3 position, Vector3Int cellPosition)
     {
         GameObject tower = Instantiate(towersPrefabs[spawnID],spawnTowerRoot);
@@ -101,7 +108,19 @@ public class Spawner : MonoBehaviour
     }
     public void SelectUnit()
     {
-        GameObject unit = Instantiate(unitPrefabs[0], spawnTowerRoot);
+        int towerCost = UnitCost(0);
+        //Check if currency is enough to spawn
+        if (GameManager.instance.currency.EnoughCurrency(towerCost))
+        {
+            //Use the amount of cost from the currency available
+            GameManager.instance.currency.Use(towerCost);
+            GameObject unit = Instantiate(unitPrefabs[0], spawnTowerRoot);
+        }
+        else
+        {
+            Debug.Log("Not Enough Currency");
+        }
+       
     }
     public void DeselectTowers()
     {
