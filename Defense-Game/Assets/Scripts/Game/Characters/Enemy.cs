@@ -54,7 +54,10 @@ public class Enemy : Character, LoseHealthAndDie
     }
     public override void Die()
     {
-        myTarget.GetComponent<LoseHealthAndDie>().DeadMessage();
+        foreach (LoseHealthAndDie ib in myAttackers)
+        {
+            ib.DeadMessage();
+        }
         Destroy(gameObject);
     }
     IEnumerator BlinkRed()

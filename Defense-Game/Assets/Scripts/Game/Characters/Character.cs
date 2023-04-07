@@ -130,5 +130,20 @@ public class Character : MonoBehaviour, LoseHealthAndDie
 
     public virtual void DeadMessage() { }
 
-    public virtual void AddAttackers(LoseHealthAndDie target) { }
+    public void AddAttackers(LoseHealthAndDie target) 
+    {
+        myAttackers.Add(target);
+    }
+    public void RemoveAttacker(LoseHealthAndDie ib)
+    {
+        for (int i = 0; i < myAttackers.Count;)
+        {
+            if (ib == myAttackers[i])
+            {
+                myAttackers.RemoveAt(i);
+                break;
+            }
+            ++i;
+        }
+    }
 }
