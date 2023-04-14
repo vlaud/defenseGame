@@ -72,6 +72,7 @@ public class GameManager : MonoBehaviour
                 typingManager.SetAsNewWord(GetNextWord());
                 PlayFeedbackSound(AudioClipType.GoodWord);
                 UIManager.instance.UpdateText(typingManager.GetCurrentWord());
+                spawner.SelectUnit();
             }
             else
             {
