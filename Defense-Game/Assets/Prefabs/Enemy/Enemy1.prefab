@@ -101,14 +101,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
-  attackPower: 1
+  attackPower: 4
   moveSpeed: 0.6
   attackInterval: 1.5
   isDetected: 0
   enemyMask:
     serializedVersion: 2
     m_Bits: 1088
-  myTarget: {fileID: 0}
   animator: {fileID: 1928362795729627625}
 --- !u!61 &5417966728447072430
 BoxCollider2D:

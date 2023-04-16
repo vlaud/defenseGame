@@ -18,7 +18,11 @@ public interface AddAttacker
 {
     public void AddAttackers(LoseHealthAndDie target);
 }
-public interface LoseHealthAndDie : CharacterDie, LoseHealth, DeadAction, AddAttacker
+public interface RemoveAttacker
+{
+    public void RemoveAttacker(LoseHealthAndDie ib);
+}
+public interface LoseHealthAndDie : CharacterDie, LoseHealth, DeadAction, AddAttacker, RemoveAttacker
 {
 
 }

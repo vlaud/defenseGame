@@ -54,6 +54,7 @@ public class Enemy : Character, LoseHealthAndDie
     }
     public override void Die()
     {
+        myTarget.GetComponent<LoseHealthAndDie>().RemoveAttacker(this);
         foreach (LoseHealthAndDie ib in myAttackers)
         {
             ib.DeadMessage();

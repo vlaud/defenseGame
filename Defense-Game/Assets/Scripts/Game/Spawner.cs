@@ -10,6 +10,7 @@ public class Spawner : MonoBehaviour
     public List<GameObject> unitPrefabs;
     //Transform of the spawning towers (Root Object)
     public Transform spawnTowerRoot;
+    public Transform spawnUnitRoot;
     //list of towers (UI)
     public List<Image> towersUI;
     //id of tower to spawn
@@ -114,7 +115,7 @@ public class Spawner : MonoBehaviour
         {
             //Use the amount of cost from the currency available
             GameManager.instance.currency.Use(towerCost);
-            GameObject unit = Instantiate(unitPrefabs[0], spawnTowerRoot);
+            GameObject unit = Instantiate(unitPrefabs[0], spawnUnitRoot);
         }
         else
         {
