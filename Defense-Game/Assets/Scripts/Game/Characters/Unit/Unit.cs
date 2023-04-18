@@ -39,7 +39,7 @@ public class Unit : Character, LoseHealthAndDie
     //Die
     public override void Die()
     {
-        myTarget.GetComponent<LoseHealthAndDie>().RemoveAttacker(this);
+        if (myTarget != null) myTarget.GetComponent<LoseHealthAndDie>().RemoveAttacker(this);
         foreach (LoseHealthAndDie ib in myAttackers)
         {
             ib.DeadMessage();
