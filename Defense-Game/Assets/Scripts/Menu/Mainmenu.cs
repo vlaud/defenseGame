@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Mainmenu : MonoBehaviour
 {
@@ -23,5 +24,9 @@ public class Mainmenu : MonoBehaviour
     public void backMainmenu()
     {
         anim.Play("Mainmenu_on");
+    }
+    public void ChangeScene(string sceneName)
+    {
+        SceneManager.LoadScene(sceneName);
     }
 }
