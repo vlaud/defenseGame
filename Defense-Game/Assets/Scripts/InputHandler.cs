@@ -1,10 +1,12 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class InputHandler : MonoBehaviour
 {
+    [SerializeField] private TMP_InputField inputField;
+    private bool isInput;
     private char _inputChar;
     private event Action<char> OnCharacterInput = delegate { };
 
@@ -27,10 +29,13 @@ public class InputHandler : MonoBehaviour
             }
         }
     }
-
+    private void Awake()
+    {
+        isInput = false;
+    }
     private void Update()
     {
-        ReadInputCharacter();
+        if(isInput) ReadInputCharacter();
     }
 
     public void AssignOnInputListener(Action<char> listener)
@@ -41,5 +46,24 @@ public class InputHandler : MonoBehaviour
     public void UnssignOnInputListener(Action<char> listener)
     {
         OnCharacterInput -= listener;
+    }
+    public void OnValueChangedEvent(string str)
+    {
+    }
+    public void OnEndEditEvent(string str)
+    {
+    }
+    public void OnSelectEvent(string str)
+    {
+        isInput = true;
+    }
+    public void OnDeselectEvent(string str)
+    {
+        isInput = false;
+    }
+    public void ResetText()
+    {
+        inputField.Select();
+        inputField.text = "";
     }
 }

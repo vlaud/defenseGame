@@ -22,6 +22,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField]
     private AudioClip[] _audioClips;
+    [SerializeField]
+    private InputHandler _inputHandler;
 
     public Spawner spawner;
     public HealthSystem health;
@@ -69,6 +71,7 @@ public class GameManager : MonoBehaviour
             UIManager.instance.UpdateText(typingManager.GetCurrentWord());
             if (typingManager.CheckIfWordsFinished())
             {
+                _inputHandler.ResetText();
                 typingManager.SetAsNewWord(GetNextWord());
                 PlayFeedbackSound(AudioClipType.GoodWord);
                 UIManager.instance.UpdateText(typingManager.GetCurrentWord());
