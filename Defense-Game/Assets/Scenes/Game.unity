@@ -7371,7 +7371,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 3
   m_Depth: -1
   m_CullingMask:
@@ -7424,6 +7424,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1669589383}
+  - component: {fileID: 1669589391}
   - component: {fileID: 1669589385}
   - component: {fileID: 1669589387}
   - component: {fileID: 1669589382}
@@ -7673,6 +7674,19 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1669589391
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1669589381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c30712fa1fdb3104c919212c1d20e7d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _Camera: {fileID: 1628190589}
 --- !u!1 &1742645075
 GameObject:
   m_ObjectHideFlags: 0
@@ -7880,8 +7894,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -7.5}
-  m_SizeDelta: {x: 0, y: -15}
+  m_AnchoredPosition: {x: 12.7350025, y: -7.5}
+  m_SizeDelta: {x: 25.469994, y: -15}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1753313001
 MonoBehaviour:
