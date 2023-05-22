@@ -1418,8 +1418,9 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\u200B"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 027ad642bf1c15142856fd4882cef66a, type: 2}
+  m_sharedMaterial: {fileID: 7492854028213116934, guid: 027ad642bf1c15142856fd4882cef66a,
+    type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2436,7 +2437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd6306dd72d9c3e449746fde9445bb2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data: {fileID: 11400000, guid: 8588222b79f6d484b9b0dab0257ef785, type: 2}
+  _data: {fileID: 11400000, guid: b318669cdbdba42459115680811a44bd, type: 2}
   _audioClips:
   - {fileID: 8300000, guid: 745d0200d781a244f86b98b959ea7955, type: 3}
   - {fileID: 8300000, guid: f24c1991ece6ed6479434d6f41301b08, type: 3}
@@ -3438,7 +3439,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: d51ede95d94b5624989f5bb97ce474f1, type: 3}
     m_FontSize: 70
     m_FontStyle: 0
     m_BestFit: 0
