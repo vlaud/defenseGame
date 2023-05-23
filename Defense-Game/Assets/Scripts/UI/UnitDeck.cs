@@ -22,15 +22,15 @@ public class UnitDeck : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, 
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.clickCount == 1)
+        if (eventData.clickCount == 2)
         {
             OnAction();
         }
-
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        GetComponent<Image>().raycastTarget = false;
+        var images = transform.GetComponentsInChildren<Image>();
+        foreach (var image in images) image.raycastTarget = false;
         transform.SetParent(Deck);
     }
     public void OnDrag(PointerEventData eventData)
@@ -39,14 +39,19 @@ public class UnitDeck : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, 
         vec.x += eventData.delta.x;
         vec.y += eventData.delta.y;
         rect.position = Camera.main.ScreenToWorldPoint(vec);
-        
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-        if(transform.parent == Deck) transform.SetParent(prevParent);
-        transform.SetSiblingIndex(sortIndex);
+        if (transform.parent == Deck)
+        {
+            transform.SetParent(prevParent);
+            transform.SetSiblingIndex(sortIndex);
+        }
+        else transform.SetAsLastSibling();
+
         rect.localPosition = Vector3.zero;
-        GetComponent<Image>().raycastTarget = true;
+        var images = transform.GetComponentsInChildren<Image>();
+        foreach (var image in images) image.raycastTarget = true;
     }
     public void OnAction()
     {

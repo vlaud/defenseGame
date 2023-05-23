@@ -11,10 +11,11 @@ public class DeckSlot : MonoBehaviour, IDropHandler
     }
     public void OnDrop(PointerEventData eventData)
     {
-        UnitDeck deck = transform.GetComponentInChildren<UnitDeck>();
-
-        eventData.pointerDrag.transform.SetParent(transform);
-        eventData.pointerDrag.transform.localPosition = Vector3.zero;
+        if (eventData.pointerDrag.transform.TryGetComponent(out UnitDeck unit))
+        {
+            eventData.pointerDrag.transform.SetParent(transform);
+            eventData.pointerDrag.transform.localPosition = Vector3.zero;
+        }
     }
     public void SetChildren(Transform child)
     {
