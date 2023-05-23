@@ -14,6 +14,6 @@ public class UnitDeck : MonoBehaviour, IPointerClickHandler
     }
     public void OnAction()
     {
-        PopUpManager.Inst.OpenPopup();
+        PopUpManager.Inst.PopupOnOff(true);
     }
 }

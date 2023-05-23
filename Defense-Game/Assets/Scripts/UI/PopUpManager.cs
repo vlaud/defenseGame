@@ -14,9 +14,9 @@ public class PopUpManager : MonoBehaviour
         noTouch.SetActive(false);
         UnitPopup.SetActive(false);
     }
-    public void OpenPopup()
+    public void PopupOnOff(bool v)
     {
-        noTouch.SetActive(true);
-        UnitPopup.SetActive(true);
+        noTouch.SetActive(v);
+        UnitPopup.SetActive(v);
     }
 }
