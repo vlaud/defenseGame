@@ -639,6 +639,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1db624a1112606343a5c453003611fbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Deck>k__BackingField: {fileID: 1815809657}
 --- !u!1 &286223138
 GameObject:
   m_ObjectHideFlags: 0
@@ -5259,6 +5260,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1829233472}
+  - component: {fileID: 1829233475}
   - component: {fileID: 1829233474}
   - component: {fileID: 1829233473}
   m_Layer: 5
@@ -5327,6 +5329,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1829233471}
   m_CullTransparentMesh: 1
+--- !u!114 &1829233475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829233471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 620a19c16f4abc240a505b2c7cfede6e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <unitCount>k__BackingField: 0
 --- !u!1 &1867084856
 GameObject:
   m_ObjectHideFlags: 0
@@ -6324,7 +6339,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2122323483
 RectTransform:
   m_ObjectHideFlags: 0
