@@ -7,6 +7,8 @@ public class UnitDeck : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, 
     private RectTransform rect;
     private Transform prevParent;
     private int sortIndex;
+    static public GameObject itemBeginDragged;
+
     [field: SerializeField]
     public Transform Deck
     {
@@ -14,6 +16,7 @@ public class UnitDeck : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, 
         private set;
     }
     public int Level = 1;
+    public DeckSlot curSlot;
     private void Start()
     {
         rect = GetComponent<RectTransform>();
@@ -22,7 +25,7 @@ public class UnitDeck : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, 
     }
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (eventData.clickCount == 2)
+        if (eventData.clickCount == 1)
         {
             OnAction();
         }
@@ -42,10 +45,15 @@ public class UnitDeck : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, 
     }
     public void OnEndDrag(PointerEventData eventData)
     {
+        if(transform.parent.TryGetComponent(out DeckSlot slot))
+        {
+            curSlot = slot;
+        }
         if (transform.parent == Deck)
         {
             transform.SetParent(prevParent);
             transform.SetSiblingIndex(sortIndex);
+            curSlot.UnDrop(this);
         }
         else transform.SetAsLastSibling();
 

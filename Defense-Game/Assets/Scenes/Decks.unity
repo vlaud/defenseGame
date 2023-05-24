@@ -560,6 +560,7 @@ GameObject:
   - component: {fileID: 215353564}
   - component: {fileID: 215353565}
   - component: {fileID: 215353563}
+  - component: {fileID: 215353566}
   m_Layer: 5
   m_Name: Unit
   m_TagString: Untagged
@@ -640,6 +641,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Deck>k__BackingField: {fileID: 1617924372}
   Level: 1
+  curSlot: {fileID: 0}
+--- !u!225 &215353566
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 215353561}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &286223138
 GameObject:
   m_ObjectHideFlags: 0
@@ -2245,6 +2259,7 @@ GameObject:
   - component: {fileID: 993272375}
   - component: {fileID: 993272377}
   - component: {fileID: 993272376}
+  - component: {fileID: 993272379}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -2318,6 +2333,18 @@ MonoBehaviour:
   m_Spacing: {x: 5, y: 5}
   m_Constraint: 2
   m_ConstraintCount: 2
+--- !u!225 &993272379
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 993272374}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1113235304
 GameObject:
   m_ObjectHideFlags: 0
@@ -5205,7 +5232,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 620a19c16f4abc240a505b2c7cfede6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <unitCount>k__BackingField: 0
+  <unitCount>k__BackingField: 1
 --- !u!1 &1867084856
 GameObject:
   m_ObjectHideFlags: 0
