@@ -13,11 +13,14 @@ public class DeckSlot : MonoBehaviour, IDropHandler
     {
         if (eventData.pointerDrag.transform.TryGetComponent(out UnitDeck unit))
         {
-            if(unit.Level <= unitCount)
+            Transform tr = unit.itemBeginDragged.transform;
+            if (unit.Level <= unitCount)
             {
-                eventData.pointerDrag.transform.SetParent(transform);
-                eventData.pointerDrag.transform.localPosition = Vector3.zero;
+                tr.SetParent(transform);
+                tr.localPosition = Vector3.zero;
+                tr.GetComponent<CanvasGroup>().blocksRaycasts = true;
                 unitCount -= unit.Level;
+                tr.GetComponent<UnitDeck>().curSlot = this;
             }
         }
     }

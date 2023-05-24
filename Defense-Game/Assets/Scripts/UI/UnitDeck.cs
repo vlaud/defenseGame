@@ -7,7 +7,13 @@ public class UnitDeck : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, 
     private RectTransform rect;
     private Transform prevParent;
     private int sortIndex;
-    static public GameObject itemBeginDragged;
+    [field: SerializeField] 
+    public bool isDuplicate
+    {
+        get;
+        private set;
+    }
+    public GameObject itemBeginDragged;
 
     [field: SerializeField]
     public Transform Deck
@@ -32,37 +38,82 @@ public class UnitDeck : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, 
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        var images = transform.GetComponentsInChildren<Image>();
-        foreach (var image in images) image.raycastTarget = false;
-        transform.SetParent(Deck);
+        if(isDuplicate)
+        {
+            transform.SetParent(Deck);
+            transform.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        }
+        else
+        {
+            GameObject obj = Instantiate(gameObject, transform.parent);
+            itemBeginDragged = obj;
+            itemBeginDragged.GetComponent<UnitDeck>().SwitchDuplicate(true);
+            RectTransform tmpRT = transform.GetComponent<RectTransform>();
+
+            RectTransform rt = itemBeginDragged.GetComponent<RectTransform>();
+            rt.sizeDelta = new Vector2(tmpRT.sizeDelta.x, tmpRT.sizeDelta.y);
+            rt.localScale = tmpRT.localScale;
+            GetComponent<CanvasGroup>().blocksRaycasts = false;
+            itemBeginDragged.transform.SetParent(Deck);
+            itemBeginDragged.GetComponent<CanvasGroup>().blocksRaycasts = false;
+            itemBeginDragged.transform.position = rect.position;
+        }
     }
     public void OnDrag(PointerEventData eventData)
     {
-        Vector3 vec = Camera.main.WorldToScreenPoint(rect.position);
-        vec.x += eventData.delta.x;
-        vec.y += eventData.delta.y;
-        rect.position = Camera.main.ScreenToWorldPoint(vec);
+        if (isDuplicate)
+        {
+            Vector3 vec = Camera.main.WorldToScreenPoint(rect.position);
+            vec.x += eventData.delta.x;
+            vec.y += eventData.delta.y;
+            rect.position = Camera.main.ScreenToWorldPoint(vec);
+        }
+        else
+        {
+            Vector3 vec = Camera.main.WorldToScreenPoint(itemBeginDragged.transform.position);
+            vec.x += eventData.delta.x;
+            vec.y += eventData.delta.y;
+            itemBeginDragged.transform.position = Camera.main.ScreenToWorldPoint(vec);
+        }
     }
     public void OnEndDrag(PointerEventData eventData)
     {
-        if(transform.parent.TryGetComponent(out DeckSlot slot))
+        // 복제본
+        if(isDuplicate)
         {
-            curSlot = slot;
+            if (transform.parent.TryGetComponent(out DeckSlot slot))
+            {
+                curSlot = slot;
+            }
+            if (transform.parent == Deck)
+            {
+                transform.SetParent(prevParent);
+                transform.SetSiblingIndex(sortIndex);
+                curSlot?.UnDrop(this);
+                Destroy(gameObject);
+            }
         }
-        if (transform.parent == Deck)
+        else // 원본
         {
-            transform.SetParent(prevParent);
-            transform.SetSiblingIndex(sortIndex);
-            curSlot.UnDrop(this);
+            Transform tr = itemBeginDragged.transform;
+            if (tr.parent.TryGetComponent(out DeckSlot slot))
+            {
+                curSlot = slot;
+            }
+            if (tr.parent == Deck)
+            {
+                Debug.Log("duplicate delete");
+                Destroy(itemBeginDragged);
+            }
+            GetComponent<CanvasGroup>().blocksRaycasts = true;
         }
-        else transform.SetAsLastSibling();
-
-        rect.localPosition = Vector3.zero;
-        var images = transform.GetComponentsInChildren<Image>();
-        foreach (var image in images) image.raycastTarget = true;
     }
     public void OnAction()
     {
         PopUpManager.Inst.PopupOnOff(true);
+    }
+    public void SwitchDuplicate(bool v)
+    {
+        isDuplicate = v;
     }
 }
