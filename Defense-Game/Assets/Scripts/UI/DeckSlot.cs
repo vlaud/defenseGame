@@ -4,11 +4,18 @@ using UnityEngine.EventSystems;
 public class DeckSlot : MonoBehaviour, IDropHandler
 {
     [field: SerializeField]
+    public int MaxCount
+    {
+        get;
+        private set;
+    }
+    [field: SerializeField]
     public int unitCount
     {
         get;
         private set;
     }
+    public GameObject text;
     public void OnDrop(PointerEventData eventData)
     {
         if (eventData.pointerDrag.transform.TryGetComponent(out UnitDeck unit))
@@ -23,6 +30,7 @@ public class DeckSlot : MonoBehaviour, IDropHandler
                 tr.GetComponent<UnitDeck>().curSlot = this;
             }
         }
+        SwitchText();
     }
     public void SetChildren(Transform child)
     {
@@ -32,5 +40,11 @@ public class DeckSlot : MonoBehaviour, IDropHandler
     public void UnDrop(UnitDeck unit)
     {
         unitCount += unit.Level;
+        SwitchText();
+    }
+    public void SwitchText()
+    {
+        bool v = (unitCount != MaxCount) ? false : true;
+        text.SetActive(v);
     }
 }
