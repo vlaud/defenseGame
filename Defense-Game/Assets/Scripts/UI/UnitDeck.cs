@@ -7,7 +7,7 @@ public class UnitDeck : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, 
     private RectTransform rect;
     private Transform prevParent;
     private int sortIndex;
-    [field: SerializeField] 
+    [field: SerializeField]
     public bool isDuplicate
     {
         get;
@@ -38,7 +38,7 @@ public class UnitDeck : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, 
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if(isDuplicate)
+        if (isDuplicate)
         {
             transform.SetParent(Deck);
             transform.GetComponent<CanvasGroup>().blocksRaycasts = false;
@@ -61,25 +61,13 @@ public class UnitDeck : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, 
     }
     public void OnDrag(PointerEventData eventData)
     {
-        if (isDuplicate)
-        {
-            Vector3 vec = Camera.main.WorldToScreenPoint(rect.position);
-            vec.x += eventData.delta.x;
-            vec.y += eventData.delta.y;
-            rect.position = Camera.main.ScreenToWorldPoint(vec);
-        }
-        else
-        {
-            Vector3 vec = Camera.main.WorldToScreenPoint(itemBeginDragged.transform.position);
-            vec.x += eventData.delta.x;
-            vec.y += eventData.delta.y;
-            itemBeginDragged.transform.position = Camera.main.ScreenToWorldPoint(vec);
-        }
+        if (isDuplicate) rect.position = DragMovement(rect.position, eventData);
+        else itemBeginDragged.transform.position = DragMovement(itemBeginDragged.transform.position, eventData);
     }
     public void OnEndDrag(PointerEventData eventData)
     {
         // º¹Á¦º»
-        if(isDuplicate)
+        if (isDuplicate)
         {
             if (transform.parent.TryGetComponent(out DeckSlot slot))
             {
@@ -115,5 +103,12 @@ public class UnitDeck : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, 
     public void SwitchDuplicate(bool v)
     {
         isDuplicate = v;
+    }
+    public Vector3 DragMovement(Vector3 pos, PointerEventData eventData)
+    {
+        Vector3 vec = Camera.main.WorldToScreenPoint(pos);
+        vec.x += eventData.delta.x;
+        vec.y += eventData.delta.y;
+        return Camera.main.ScreenToWorldPoint(vec);
     }
 }
