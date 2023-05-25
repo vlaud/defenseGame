@@ -3,23 +3,28 @@ using UnityEngine.EventSystems;
 
 public class DeckSlot : MonoBehaviour, IDropHandler
 {
-    [field: SerializeField]
-    public int MaxCount
-    {
-        get;
-        private set;
-    }
-    [field: SerializeField]
+    [SerializeField] private int MaxCount;
+    [SerializeField] private int unitcount;
     public int unitCount
     {
-        get;
-        private set;
+        get => unitcount;
+        private set
+        {
+            unitcount = Mathf.Clamp(value, 0, MaxCount);
+        }
     }
     public GameObject text;
+    private void Start()
+    {
+        MaxCount = transform.GetSiblingIndex() + 1;
+        unitCount = MaxCount;
+        text.GetComponent<TMPro.TMP_Text>().text = MaxCount.ToString() + "Æ¼¾î ½½·Ô";
+    }
     public void OnDrop(PointerEventData eventData)
     {
         if (eventData.pointerDrag.transform.TryGetComponent(out UnitDeck unit))
         {
+            if (unit.isDuplicate) return;
             Transform tr = unit.itemBeginDragged.transform;
             if (unit.Level <= unitCount)
             {
