@@ -8,6 +8,7 @@ public class UnitDeck : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public Subject mySubject;
     public float timeLimit = 0.25f;
     public PointerEventData.InputButton button;
+    public Animator _anim;
 
     [System.Serializable]
     public class OnSingleClick : UnityEvent { };
@@ -28,6 +29,7 @@ public class UnitDeck : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public void Notified()
     {
         Debug.Log(this + ", " + mySubject);
+        _anim.SetTrigger("Shake");
     }
     public void SetMySubject(Subject s)
     {
@@ -95,6 +97,7 @@ public class UnitDeck : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public DeckSlot curSlot;
     private void Start()
     {
+        _anim = GetComponent<Animator>();
         rect = GetComponent<RectTransform>();
         prevParent = transform.parent;
         sortIndex = transform.GetSiblingIndex();
