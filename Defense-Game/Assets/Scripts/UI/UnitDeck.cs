@@ -3,8 +3,9 @@ using UnityEngine.Events;
 using UnityEngine.EventSystems;
 using System.Collections;
 
-public class UnitDeck : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class UnitDeck : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, Observer
 {
+    public Subject mySubject;
     public float timeLimit = 0.25f;
     public PointerEventData.InputButton button;
 
@@ -24,10 +25,16 @@ public class UnitDeck : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     {
         clickCount = 0;
     }
-
+    public void Notified()
+    {
+        Debug.Log(this + ", " + mySubject);
+    }
+    public void SetMySubject(Subject s)
+    {
+        mySubject = s;
+    }
     public void onClick(BaseEventData data)
     {
-
         PointerEventData pointerData = data as PointerEventData;
 
         if (this.button != pointerData.button)
@@ -47,7 +54,6 @@ public class UnitDeck : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     private IEnumerator ClickRoutine()
     {
-
         while (clickCount != 0)
         {
             yield return new WaitForEndOfFrame();
@@ -105,6 +111,7 @@ public class UnitDeck : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             GameObject obj = Instantiate(gameObject, transform.parent);
             itemBeginDragged = obj;
             itemBeginDragged.GetComponent<UnitDeck>().SwitchDuplicate(true);
+            mySubject.AddObserver(itemBeginDragged.GetComponent<Observer>());
             RectTransform tmpRT = transform.GetComponent<RectTransform>();
 
             RectTransform rt = itemBeginDragged.GetComponent<RectTransform>();
@@ -135,6 +142,7 @@ public class UnitDeck : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
                 transform.SetParent(prevParent);
                 transform.SetSiblingIndex(sortIndex);
                 curSlot?.UnDrop(this);
+                mySubject.RemoveObserver(this);
                 Destroy(gameObject);
             }
         }
@@ -148,6 +156,7 @@ public class UnitDeck : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             if (tr.parent == Deck)
             {
                 Debug.Log("duplicate delete");
+                mySubject.RemoveObserver(itemBeginDragged.GetComponent<Observer>());
                 Destroy(itemBeginDragged);
             }
             GetComponent<CanvasGroup>().blocksRaycasts = true;
