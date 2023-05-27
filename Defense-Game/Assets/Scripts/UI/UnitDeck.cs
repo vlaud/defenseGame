@@ -21,7 +21,8 @@ public class UnitDeck : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private int clickCount;
     private float firstClickTime;
     private float currentTime;
-
+    [SerializeField]
+    private UnitStatus unitStatus;
     private UnitDeck()
     {
         clickCount = 0;

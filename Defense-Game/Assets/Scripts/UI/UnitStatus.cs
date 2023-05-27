@@ -2,17 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitStatus : MonoBehaviour
+[CreateAssetMenu(fileName = "UnitStatusData", menuName = "Resource Data/Unit Data")]
+public class UnitStatus : ScriptableObject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private Sprite unitSprite;
+    [SerializeField]
+    private float hp;
+    [SerializeField]
+    private float ap;
+    [SerializeField]
+    private float moveSpeed;
+    [SerializeField]
+    private float attackSpeed;
+    [SerializeField]
+    private float dp;
+    [SerializeField]
+    private float attackRange;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

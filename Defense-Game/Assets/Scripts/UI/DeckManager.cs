@@ -17,6 +17,7 @@ public interface Observer
 }
 public class DeckManager : MonoBehaviour, Subject
 {
+    private Dictionary<int, List<Observer>> unitTypeListMap = new Dictionary<int, List<Observer>>();
     public List<Observer> observers = new List<Observer>();
     // Start is called before the first frame update
     void Start()
