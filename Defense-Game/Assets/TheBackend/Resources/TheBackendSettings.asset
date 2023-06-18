@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 660911240, guid: f624596d5fe1bd5459a5da424a8abc1b, type: 3}
   m_Name: TheBackendSettings
   m_EditorClassIdentifier: 
-  clientAppID: 
-  signatureKey: 
+  clientAppID: e330c6f0-0391-11ee-a990-074ee8b001bc5004
+  signatureKey: e330c6f1-0391-11ee-a990-074ee8b001bc5004
   functionAuthKey: 
   packageName: com.Antarsoft.TowerDefenseTutorial
   isAllPlatform: 1

@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9a94533a4ec1794099af1c69a2b7c64, type: 3}
+  m_Name: BackendServerSettings
+  m_EditorClassIdentifier: 
+  _serverInfos:
+  - type: 2
+    serverName: Development
+    clientAppId: e330c6f0-0391-11ee-a990-074ee8b001bc5004
+    signatureKey: e330c6f1-0391-11ee-a990-074ee8b001bc5004
+    rankUuid: 
+    showAd: 0
+    testAd: 1

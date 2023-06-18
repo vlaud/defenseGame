@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
             _textReader = TextAssetReaderFactory.CreateReader(_data.ResourceType);
             _wordsQueue = _textReader.ReadFile(_data.WordsFile);
             typingManager = new TypingManager(GetNextWord());
-            UIManager.instance.UpdateText(typingManager.GetCurrentWord());
+            Defense.UIManager.Instance.UpdateText(typingManager.GetCurrentWord());
             FindObjectOfType<InputHandler>().AssignOnInputListener(CheckPlayerInput);
         }
         else
@@ -68,13 +68,13 @@ public class GameManager : MonoBehaviour
         Debug.Log(c);
         if (typingManager.CheckCharacter(c))
         {
-            UIManager.instance.UpdateText(typingManager.GetCurrentWord());
+            Defense.UIManager.Instance.UpdateText(typingManager.GetCurrentWord());
             if (typingManager.CheckIfWordsFinished())
             {
                 _inputHandler.ResetText();
                 typingManager.SetAsNewWord(GetNextWord());
                 PlayFeedbackSound(AudioClipType.GoodWord);
-                UIManager.instance.UpdateText(typingManager.GetCurrentWord());
+                Defense.UIManager.Instance.UpdateText(typingManager.GetCurrentWord());
                 spawner.SelectUnit();
             }
             else
