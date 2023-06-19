@@ -16,6 +16,7 @@ public class UnitStatus : ScriptableObject
     [SerializeField]
     private string unitName;
     [SerializeField]
+    [TextArea(3, 15)]
     private string unitDescription;
     [SerializeField]
     private UnitPosition unitPosition;
